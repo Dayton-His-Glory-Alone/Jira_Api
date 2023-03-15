@@ -11,3 +11,19 @@ $serverData = @{
 Set-AtlassianServerConfiguration @serverData
 
 Get-ConfluenceSpace -Server "NussbaumPS - wiki"
+
+# Automate documentation
+# uses VM info -> Name, IP, Dept, Purpose
+$CSV = Import-Csv .\testList.csv
+ForEach ($VM in (Get-Content .\changes.txt)) {
+    $Table = $CSV | Where Name -eq $VM | ConvertTo-ConfluenceTable | Out-String
+    $Body = $Table | ConvertTo-ConfluenceStorageFormat
+    
+    If ($ID = (Get-ConfluencePage -Title "$($VM.Name)").ID) {
+        # Current page found. Overwrite body.
+        Set-ConfluencePage -PageID $ID -ParentID 123456 -Body $Body
+    } Else {
+        # Create a page
+        New-ConfluencePage -Title "$($VM.Name)" -Body $Body -ParentID 123456
+    }
+}
