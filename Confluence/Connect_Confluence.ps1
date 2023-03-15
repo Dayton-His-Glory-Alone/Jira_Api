@@ -10,6 +10,9 @@ $serverData = @{
 }
 Set-AtlassianServerConfiguration @serverData
 
+# display all spaces
+Get-ConfluenceSpace
+
 Get-ConfluenceSpace -Server "NussbaumPS - wiki"
 
 # Automate documentation
