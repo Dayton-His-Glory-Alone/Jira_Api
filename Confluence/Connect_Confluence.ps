@@ -1,0 +1,13 @@
+Import-Module ConfluencePS   # AtlassianPS.Configuration is imported automatically
+
+$serverData = @{
+    # BaseURL of the server
+    Uri = "https://nussbaum.atlassian.net/wiki"
+    # Name with which you want to address this server
+    ServerName = "NussbaumPS - wiki"
+    # Type of the Atlassian product
+    Type = "Confluence"
+}
+Set-AtlassianServerConfiguration @serverData
+
+Get-ConfluenceSpace -Server "NussbaumPS - wiki"
