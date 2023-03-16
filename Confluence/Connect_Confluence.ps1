@@ -1,3 +1,6 @@
+# One time only install: (requires an admin PowerShell window)
+Install-Module ConfluencePS
+
 Import-Module ConfluencePS   # AtlassianPS.Configuration is imported automatically
 
 $serverData = @{
